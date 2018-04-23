@@ -1,0 +1,2 @@
+# Accounts that are wanted to allow to use this program; Even root will not be allowed if it isn't written here.
+accounts-allowed user
