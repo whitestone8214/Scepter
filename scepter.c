@@ -47,13 +47,15 @@ int main(int nElements, char **elements, char **conditions) {
 	
 	/* What's your name? */
 	struct passwd *_treeYourName = getpwuid(getuid());
-	int _nth; for (_nth = 0; _nth < no8177_element_length(_listAccountsAllowed); _nth++) {
+	int _nth;
+	int _nAccountsAllowed = (_listAccountsAllowed != NULL) ? (no8177_element_length(_listAccountsAllowed) - 1) : -1;
+	for (_nth = 0; _nth <= _nAccountsAllowed; _nth++) {
 		byte *_name = (byte *)no8177_element_first(no8177_element_get(_listAccountsAllowed, _nth))->data;
 		if (_name == NULL) continue;
 		if (strcmp(_treeYourName->pw_name, _name) == 0) break;
 	}
 	if (_listAccountsAllowed != NULL) no8177_element_dispose(_listAccountsAllowed);
-	if (_nth >= no8177_element_length(_listAccountsAllowed)) {printf("ERROR: You are not allowed to use this program.\n"); return 1;}
+	if (_nth > _nAccountsAllowed) {printf("ERROR: You are not allowed to use this program.\n"); return 1;}
 	
 	/* Read and launch the command */
 	byte *_command[nElements + 1]; _command[0] = "/bin/env"; _command[nElements] = NULL;
